@@ -51,6 +51,7 @@ export default function CreateCommunityModal({ open, setClose }: Props) {
   };
 
   const handleCreateCommunity = async () => {
+    if (error) setError("");
     // check for name length and special characters
     const regex = /[^a-zA-Z0-9_]/g;
     if (regex.test(communityName) || communityName.length < 3) {
