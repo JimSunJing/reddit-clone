@@ -13,7 +13,7 @@ type UserMenuProps = {
 };
 
 export default function Directory({ user }: UserMenuProps) {
-  const setAuthModalState = useSetRecoilState(authModalState);
+  // const setAuthModalState = useSetRecoilState(authModalState);
 
   return (
     <Menu>
