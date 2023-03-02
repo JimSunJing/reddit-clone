@@ -1,5 +1,5 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
@@ -15,7 +15,9 @@ const firebaseConfig = {
 
 // Initialize Firebase for SSR(server side rendering)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const firestore = getFirestore(app);
+const firestore = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+});
 const auth = getAuth(app);
 const storage = getStorage(app);
 
