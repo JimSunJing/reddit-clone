@@ -25,7 +25,7 @@ export default function PageContent({ children }: Props) {
         {/* Right */}
         <Flex
           display={{ base: "none", md: "flex" }}
-          flexGlow={1}
+          flexGrow={1}
           border="1px solid orange"
         >
           {children && children[1 as keyof typeof children]}
