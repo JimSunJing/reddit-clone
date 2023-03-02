@@ -10,6 +10,7 @@ type HeaderProps = {
 
 export default function Header({ communityData }: HeaderProps) {
   const { communityStateValue, joinOrLeaveCommunity } = useCommunityData();
+  console.log("communityStateAtom", communityStateValue);
   const isJoined = !!communityStateValue.mySnippets.find(
     (item) => item.communityId === communityData.id
   ); // get from user snippet
