@@ -19,6 +19,7 @@ export default function PageContent({ children }: Props) {
           width={{ base: "100%", md: "65%" }}
           mr={{ base: 0, md: 6 }}
           border="1px solid green"
+          direction="column"
         >
           {children && children[0 as keyof typeof children]}
         </Flex>
@@ -27,6 +28,7 @@ export default function PageContent({ children }: Props) {
           display={{ base: "none", md: "flex" }}
           flexGrow={1}
           border="1px solid orange"
+          direction="column"
         >
           {children && children[1 as keyof typeof children]}
         </Flex>

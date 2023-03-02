@@ -25,7 +25,7 @@ export default function useCommunityData() {
   const getUserSnippets = async () => {
     try {
       const snippetDocs = await getDocs(
-        collection(firestore, `users/${user?.uid}/commnitySnippets`)
+        collection(firestore, `users/${user?.uid}/communitySnippets`)
       );
       const snippets = snippetDocs.docs.map((doc) => ({ ...doc.data() }));
       setCommunityStateValue((prev) => ({
