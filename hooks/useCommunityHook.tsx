@@ -23,6 +23,7 @@ export default function useCommunityData() {
   }, [user]);
 
   const getUserSnippets = async () => {
+    setLoading(true);
     try {
       const snippetDocs = await getDocs(
         collection(firestore, `users/${user?.uid}/communitySnippets`)
@@ -35,6 +36,7 @@ export default function useCommunityData() {
     } catch (error) {
       console.log("getUserSnippets error", error);
     }
+    setLoading(false);
   };
 
   const joinOrLeaveCommunity = (
@@ -58,5 +60,5 @@ export default function useCommunityData() {
 
   const leaveCommunity = (communityId: string) => {};
 
-  return { communityStateValue, joinOrLeaveCommunity };
+  return { communityStateValue, joinOrLeaveCommunity, loading };
 }

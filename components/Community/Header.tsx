@@ -9,7 +9,8 @@ type HeaderProps = {
 };
 
 export default function Header({ communityData }: HeaderProps) {
-  const { communityStateValue, joinOrLeaveCommunity } = useCommunityData();
+  const { communityStateValue, joinOrLeaveCommunity, loading } =
+    useCommunityData();
   console.log("communityStateAtom", communityStateValue);
   const isJoined = !!communityStateValue.mySnippets.find(
     (item) => item.communityId === communityData.id
@@ -48,6 +49,7 @@ export default function Header({ communityData }: HeaderProps) {
               height="30px"
               variant={isJoined ? "outline" : "solid"}
               onClick={() => joinOrLeaveCommunity(communityData, isJoined)}
+              isLoading={loading}
             >
               {isJoined ? "Joined" : "Join"}
             </Button>
