@@ -1,3 +1,4 @@
+import { authModalState } from "@/atoms/AuthModalAtom";
 import {
   Community,
   CommunitySnippet,
@@ -13,7 +14,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 export default function useCommunityData() {
   const [communityStateValue, setCommunityStateValue] =
@@ -22,6 +23,8 @@ export default function useCommunityData() {
   const [error, setError] = useState("");
 
   const [user] = useAuthState(auth);
+
+  const setAuthModalState = useSetRecoilState(authModalState);
 
   useEffect(() => {
     if (!user) return;
@@ -51,6 +54,10 @@ export default function useCommunityData() {
   ) => {
     // if havn't login
     // pop out auth modal
+    if (!user) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
 
     if (isJoined) {
       // leave community
