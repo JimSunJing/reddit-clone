@@ -6,8 +6,10 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import { Flex, Icon } from "@chakra-ui/react";
 import { type } from "os";
 import TabItem from "./TabItem";
+import TextInputs from "./PostForm/TextInputs";
+import ImageUpload from "./PostForm/ImageUpload";
 
-const formTabs = [
+const formTabs: TabItemType[] = [
   {
     title: "Post",
     icon: IoDocumentText,
@@ -39,6 +41,39 @@ type Props = {};
 
 export default function NewPostForm({}: Props) {
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
+  const [textInputs, setTextInputs] = useState({
+    title: "",
+    body: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<string>();
+
+  const handleCreatePost = async () => {};
+
+  const onTextChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    event.preventDefault();
+    setTextInputs((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileReader = new FileReader();
+
+    if (event.target.files?.[0]) {
+      fileReader.readAsDataURL(event.target.files[0]);
+    }
+
+    fileReader.onload = (readerEvent) => {
+      if (readerEvent.target?.result) {
+        // only for selecting one pic
+        setSelectedFile(readerEvent.target.result as string);
+      }
+    };
+  };
 
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
@@ -51,6 +86,24 @@ export default function NewPostForm({}: Props) {
             key={item.title}
           />
         ))}
+      </Flex>
+      <Flex m="20px 0px">
+        {selectedTab === "Post" && (
+          <TextInputs
+            textInputs={textInputs}
+            onChange={onTextChange}
+            loading={loading}
+            handleCreatePost={handleCreatePost}
+          />
+        )}
+        {selectedTab === "Images & Video" && (
+          <ImageUpload
+            selectedFile={selectedFile}
+            onSelectImage={onSelectImage}
+            setSelectedFile={setSelectedFile}
+            setSelectedTab={setSelectedTab}
+          />
+        )}
       </Flex>
     </Flex>
   );
