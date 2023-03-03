@@ -48,6 +48,7 @@ export default function NewPostForm({}: Props) {
             item={item}
             onTabClick={setSelectedTab}
             selected={selectedTab === item.title}
+            key={item.title}
           />
         ))}
       </Flex>
