@@ -61,7 +61,7 @@ export default function NewPostForm({ user }: Props) {
     body: "",
   });
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<string>("");
+  const [selectedFile, setSelectedFile] = useState<string>();
 
   const handleCreatePost = async () => {
     const { communityId } = router.query;
@@ -83,15 +83,18 @@ export default function NewPostForm({ user }: Props) {
       // store post
       const newPostRef = await addDoc(collection(firestore, "posts"), newPost);
 
-      // upload image
-      const imageRef = ref(storage, `posts/${newPostRef.id}/image`);
-      await uploadString(imageRef, selectedFile, "data_url");
-      const downloadURL = getDownloadURL(imageRef);
+      if (selectedFile) {
+        // upload image
+        const imageRef = ref(storage, `posts/${newPostRef.id}/image`);
+        await uploadString(imageRef, selectedFile, "data_url");
+        const downloadURL = await getDownloadURL(imageRef);
 
-      // put image url in post
-      await updateDoc(newPostRef, {
-        imageURL: downloadURL,
-      });
+        // put image url in post
+        await updateDoc(newPostRef, {
+          imageURL: downloadURL,
+        });
+        console.log("image Download URL:", downloadURL);
+      }
 
       // return to community
       // router.back();
