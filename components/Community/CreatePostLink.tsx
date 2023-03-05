@@ -23,7 +23,7 @@ export default function CreatePostLink() {
     // Could check for user to open auth modal before redirecting to submit
     const { communityId } = router.query;
     if (communityId) {
-      router.push(`/r/${router.query.community}/submit`);
+      router.push(`/r/${router.query.communityId}/submit`);
       return;
     }
     // Open directory menu to select community to post to
