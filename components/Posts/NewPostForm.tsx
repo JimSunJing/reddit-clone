@@ -8,6 +8,18 @@ import { type } from "os";
 import TabItem from "./TabItem";
 import TextInputs from "./PostForm/TextInputs";
 import ImageUpload from "./PostForm/ImageUpload";
+import { Post } from "@/atoms/postsatom";
+import { User } from "firebase/auth";
+import { useRouter } from "next/router";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  Timestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { firestore, storage } from "@/firebase/clientApp";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 const formTabs: TabItemType[] = [
   {
@@ -37,18 +49,57 @@ export type TabItemType = {
   icon: typeof Icon.arguments;
 };
 
-type Props = {};
+type Props = {
+  user: User;
+};
 
-export default function NewPostForm({}: Props) {
+export default function NewPostForm({ user }: Props) {
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
   const [textInputs, setTextInputs] = useState({
     title: "",
     body: "",
   });
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<string>();
+  const [selectedFile, setSelectedFile] = useState<string>("");
 
-  const handleCreatePost = async () => {};
+  const handleCreatePost = async () => {
+    const { communityId } = router.query;
+    // create new post object
+    const newPost: Post = {
+      communityId: communityId as string,
+      creatorId: user.uid,
+      creatorDisplayName: user.email!.split("@")[0],
+      title: textInputs.title,
+      body: textInputs.body,
+      numberOfComment: 0,
+      voteStatus: 0,
+      createdAt: serverTimestamp() as Timestamp,
+    };
+
+    // store post in db
+    setLoading(true);
+    try {
+      // store post
+      const newPostRef = await addDoc(collection(firestore, "posts"), newPost);
+
+      // upload image
+      const imageRef = ref(storage, `posts/${newPostRef.id}/image`);
+      await uploadString(imageRef, selectedFile, "data_url");
+      const downloadURL = getDownloadURL(imageRef);
+
+      // put image url in post
+      await updateDoc(newPostRef, {
+        imageURL: downloadURL,
+      });
+
+      // return to community
+      // router.back();
+    } catch (error: any) {
+      console.log("handleCreatePost error", error.messsage);
+    }
+    setLoading(false);
+  };
 
   const onTextChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
