@@ -3,7 +3,7 @@ import { BiPoll } from "react-icons/bi";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { Flex, Icon } from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle, Flex, Icon } from "@chakra-ui/react";
 import { type } from "os";
 import TabItem from "./TabItem";
 import TextInputs from "./PostForm/TextInputs";
@@ -62,8 +62,10 @@ export default function NewPostForm({ user }: Props) {
   });
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<string>();
+  const [error, setError] = useState("");
 
   const handleCreatePost = async () => {
+    setError("");
     const { communityId } = router.query;
     // create new post object
     const newPost: Post = {
@@ -99,7 +101,8 @@ export default function NewPostForm({ user }: Props) {
       // return to community
       // router.back();
     } catch (error: any) {
-      console.log("handleCreatePost error", error.messsage);
+      console.log("handleCreatePost error", error);
+      setError(error);
     }
     setLoading(false);
   };
@@ -159,6 +162,12 @@ export default function NewPostForm({ user }: Props) {
           />
         )}
       </Flex>
+      {error && (
+        <Alert status="error">
+          <AlertIcon />
+          <AlertTitle>Creating Post Error!</AlertTitle>
+        </Alert>
+      )}
     </Flex>
   );
 }
