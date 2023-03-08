@@ -85,11 +85,11 @@ export default function PostItem({
             {post.title}
           </Text>
           <Text fontSize="10px">{post.body}</Text>
-          {loadingImage && (
-            <Skeleton height="200px" width="100%" borderRadius={4} />
-          )}
           {post.imageURL && (
             <Flex justify="center" align="center" p={2}>
+              {loadingImage && (
+                <Skeleton height="200px" width="100%" borderRadius={4} />
+              )}
               <Image
                 src={post.imageURL}
                 maxHeight="460px"
@@ -108,7 +108,7 @@ export default function PostItem({
             _hover={{ bg: "gray.200" }}
             cursor="pointer"
           >
-            <Icon as={BsChat} mr={2} />]
+            <Icon as={BsChat} mr={2} />
             <Text fontSize="9pt">{post.numberOfComment}</Text>
           </Flex>
           <Flex
@@ -118,7 +118,7 @@ export default function PostItem({
             _hover={{ bg: "gray.200" }}
             cursor="pointer"
           >
-            <Icon as={IoArrowRedoOutline} mr={2} />]
+            <Icon as={IoArrowRedoOutline} mr={2} />
             <Text fontSize="9pt">Share</Text>
           </Flex>
           <Flex
@@ -128,7 +128,7 @@ export default function PostItem({
             _hover={{ bg: "gray.200" }}
             cursor="pointer"
           >
-            <Icon as={IoBookmarkOutline} mr={2} />]
+            <Icon as={IoBookmarkOutline} mr={2} />
             <Text fontSize="9pt">Save</Text>
           </Flex>
           {userIsCreator && (
@@ -139,7 +139,7 @@ export default function PostItem({
               _hover={{ bg: "gray.200" }}
               cursor="pointer"
             >
-              <Icon as={AiOutlineDelete} mr={2} />]
+              <Icon as={AiOutlineDelete} mr={2} />
               <Text fontSize="9pt">Delete</Text>
             </Flex>
           )}
