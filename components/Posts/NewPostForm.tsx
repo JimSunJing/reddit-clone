@@ -99,7 +99,7 @@ export default function NewPostForm({ user }: Props) {
       }
 
       // return to community
-      // router.back();
+      router.back();
     } catch (error: any) {
       console.log("handleCreatePost error", error);
       setError(error);
