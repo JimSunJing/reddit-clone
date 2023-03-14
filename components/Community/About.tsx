@@ -40,7 +40,7 @@ export default function About({ communityData }: Props) {
         <Stack>
           <Flex fontSize="10pt" fontWeight={700} p={2} width="100%">
             <Flex direction="column" flexGrow={1}>
-              <Text>{communityData.numberOfMember.toLocaleString()}</Text>
+              <Text>{communityData.numberOfMembers.toLocaleString()}</Text>
               <Text>Members</Text>
             </Flex>
             <Flex direction="column" flexGrow={1}>
