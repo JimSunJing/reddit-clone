@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { firestore, storage } from "@/firebase/clientApp";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import useSelectFile from "@/hooks/useSelectFile";
 
 const formTabs: TabItemType[] = [
   {
@@ -61,7 +62,7 @@ export default function NewPostForm({ user }: Props) {
     body: "",
   });
   const [loading, setLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<string>();
+  const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
   const [error, setError] = useState("");
 
   const handleCreatePost = async () => {
@@ -117,21 +118,6 @@ export default function NewPostForm({ user }: Props) {
     }));
   };
 
-  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileReader = new FileReader();
-
-    if (event.target.files?.[0]) {
-      fileReader.readAsDataURL(event.target.files[0]);
-    }
-
-    fileReader.onload = (readerEvent) => {
-      if (readerEvent.target?.result) {
-        // only for selecting one pic
-        setSelectedFile(readerEvent.target.result as string);
-      }
-    };
-  };
-
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
       <Flex width="100%">
@@ -156,7 +142,7 @@ export default function NewPostForm({ user }: Props) {
         {selectedTab === "Images & Video" && (
           <ImageUpload
             selectedFile={selectedFile}
-            onSelectImage={onSelectImage}
+            onSelectImage={onSelectFile}
             setSelectedFile={setSelectedFile}
             setSelectedTab={setSelectedTab}
           />

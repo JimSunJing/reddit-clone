@@ -66,7 +66,7 @@ export default function About({ communityData }: Props) {
             )}
           </Flex>
           <Link href={`/r/${router.query.communityId}/submit`}>
-            <Button mt={3} height="30px">
+            <Button mt={3} height="30px" width="100%">
               Create Post
             </Button>
           </Link>
