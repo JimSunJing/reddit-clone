@@ -151,16 +151,16 @@ export default function About({ communityData }: Props) {
                       <Text cursor="pointer" onClick={onUpdateImage}>
                         Save Change
                       </Text>
-                      <input
-                        id="file-upload"
-                        type="file"
-                        accept="image/x-png,image/gif,image/jpeg"
-                        hidden
-                        ref={selectFileRef}
-                        onChange={onSelectFile}
-                      />
                     </>
                   ))}
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/x-png,image/gif,image/jpeg"
+                  hidden
+                  ref={selectFileRef}
+                  onChange={onSelectFile}
+                />
               </Stack>
             </>
           )}
