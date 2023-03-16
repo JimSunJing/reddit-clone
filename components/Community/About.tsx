@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
@@ -29,7 +28,6 @@ type Props = {
 };
 
 export default function About({ communityData }: Props) {
-  const router = useRouter();
   const [user] = useAuthState(auth);
   const selectFileRef = useRef<HTMLInputElement>(null);
   const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
@@ -104,7 +102,7 @@ export default function About({ communityData }: Props) {
               </Text>
             )}
           </Flex>
-          <Link href={`/r/${router.query.communityId}/submit`}>
+          <Link href={`/r/${communityData.id}/submit`}>
             <Button mt={3} height="30px" width="100%">
               Create Post
             </Button>
