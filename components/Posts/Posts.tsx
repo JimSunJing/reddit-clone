@@ -60,13 +60,13 @@ export default function Posts({ communityData }: Props) {
         <PostLoader />
       ) : (
         <Stack>
-          {postStateValue.posts.map((post) => (
+          {postStateValue.posts.map((postItem) => (
             <PostItem
-              post={post}
-              key={post.id}
-              userIsCreator={user?.uid === post.creatorId}
+              post={postItem}
+              key={postItem.id}
+              userIsCreator={user?.uid === postItem.creatorId}
               userVoteValue={
-                postStateValue.postVotes.find((pv) => pv.postId === post.id)
+                postStateValue.postVotes.find((pv) => pv.postId === postItem.id)
                   ?.voteValue
               }
               onVote={onVote}

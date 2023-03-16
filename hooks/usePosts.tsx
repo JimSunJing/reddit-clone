@@ -32,7 +32,7 @@ export default function usePosts() {
       // backup for update
       const { voteStatus } = post;
       const existingVote = postStateValue.postVotes.find(
-        (post) => post.communityId === communityId
+        (p) => p.postId === post.id
       );
 
       const batch = writeBatch(firestore);
