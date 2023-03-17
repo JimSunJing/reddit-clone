@@ -25,7 +25,13 @@ export default function usePosts() {
   const setAuthModalState = useSetRecoilState(authModalState);
   const currentCommunity = useRecoilValue(CommunityStateAtom).currentCommunity;
 
-  const onVote = async (post: Post, vote: number, communityId: string) => {
+  const onVote = async (
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    post: Post,
+    vote: number,
+    communityId: string
+  ) => {
+    event.stopPropagation();
     // if user havn't login, show auth modal
     if (!user) {
       setAuthModalState({
@@ -131,6 +137,13 @@ export default function usePosts() {
         posts: updatedPosts,
         postVotes: updatedPostVotes,
       }));
+
+      if (postStateValue.selectedPost) {
+        setPostStateValue((prev) => ({
+          ...prev,
+          selectedPost: updatedPost,
+        }));
+      }
     } catch (error) {
       console.log("onVote error:", error);
     }
