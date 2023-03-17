@@ -48,7 +48,7 @@ export default function PostPage() {
             onDeletePost={onDeletePost}
             userVoteValue={
               postStateValue.postVotes.find(
-                (item) => item.id === postStateValue.selectedPost?.id
+                (item) => item.postId === postStateValue.selectedPost?.id
               )?.voteValue
             }
             userIsCreator={user?.uid === postStateValue.selectedPost.creatorId}
