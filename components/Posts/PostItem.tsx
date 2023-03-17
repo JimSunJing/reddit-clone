@@ -31,7 +31,7 @@ type Props = {
   userVoteValue?: number;
   onVote: (post: Post, vote: number, communityId: string) => void;
   onDeletePost: (post: Post) => Promise<boolean>;
-  onSelectPost: () => void;
+  onSelectPost?: (post: Post) => void;
 };
 
 export default function PostItem({
@@ -68,7 +68,7 @@ export default function PostItem({
       borderRadius={4}
       _hover={{ borderColor: "gray.500" }}
       cursor="pointer"
-      onClick={onSelectPost}
+      onClick={() => onSelectPost && onSelectPost(post)}
     >
       <Flex
         direction="column"
