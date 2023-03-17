@@ -26,10 +26,10 @@ export default function usePosts() {
   const onVote = async (post: Post, vote: number, communityId: string) => {
     // if user havn't login, show auth modal
     if (!user) {
-      setAuthModalState((prev) => ({
-        ...prev,
+      setAuthModalState({
+        view: "login",
         open: true,
-      }));
+      });
       return;
     }
 
@@ -182,6 +182,16 @@ export default function usePosts() {
     if (!user || !currentCommunity?.id) return;
     getCommunityPostVotes(currentCommunity.id);
   }, [user, currentCommunity]);
+
+  // clear votes when logout
+  useEffect(() => {
+    if (!user) {
+      setPostStateValue((prev) => ({
+        ...prev,
+        postVotes: [],
+      }));
+    }
+  }, [user]);
 
   return {
     postStateValue,

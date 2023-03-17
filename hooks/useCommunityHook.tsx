@@ -27,7 +27,13 @@ export default function useCommunityData() {
   const setAuthModalState = useSetRecoilState(authModalState);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: [],
+      }));
+      return;
+    }
     getUserSnippets();
   }, [user]);
 
