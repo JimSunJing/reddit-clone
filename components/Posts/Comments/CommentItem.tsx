@@ -11,7 +11,7 @@ import moment from "moment";
 type Props = {
   comment: Comment;
   onDeleteComment: (comment: Comment) => void;
-  userId: string;
+  userId: string | null;
   loadingDelete: boolean;
 };
 
@@ -38,7 +38,7 @@ export default function CommentItem({
         <Stack direction="row" align="center" cursor="pointer" color="gray.500">
           <Icon as={IoArrowUpCircleOutline} />
           <Icon as={IoArrowDownCircleOutline} />
-          {userId === comment.creatorId && (
+          {userId && userId === comment.creatorId && (
             <>
               <Text fontSize="9pt" _hover={{ color: "blue.500" }}>
                 Edit

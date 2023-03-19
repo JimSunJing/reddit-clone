@@ -206,7 +206,7 @@ export default function Comments({ user, selectedPost, communityId }: Props) {
                 {comments.map((comment) => (
                   <CommentItem
                     comment={comment}
-                    userId={user.uid}
+                    userId={user ? user.uid : null}
                     onDeleteComment={onDeleteComment}
                     loadingDelete={loadingDeleteId === comment.id}
                     key={comment.id}
