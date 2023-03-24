@@ -67,15 +67,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } catch (error) {
     console.log("getServerSideProps", error);
     // dummy for network error(fuck the firewall)
-    return {
-      props: {
-        communityData: {
-          id: "image",
-          numberOfMembers: 1,
-          creatorId: "NGWCvi1DDtMmoIPfjfVXDhCFBBs1",
-          privacyType: "public",
-        },
-      },
-    };
+    // return {
+    //   props: {
+    //     communityData: {
+    //       id: "image",
+    //       numberOfMembers: 1,
+    //       creatorId: "NGWCvi1DDtMmoIPfjfVXDhCFBBs1",
+    //       privacyType: "public",
+    //     },
+    //   },
+    // };
   }
 }
