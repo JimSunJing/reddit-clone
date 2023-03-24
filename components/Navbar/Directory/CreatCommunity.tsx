@@ -37,7 +37,7 @@ export default function CreateCommunity() {
           .map((snippet) => (
             <MenuListItem
               key={snippet.communityId}
-              displayText={snippet.communityId}
+              displayText={`r/${snippet.communityId}`}
               link={`/r/${snippet.communityId}`}
               icon={FaReddit}
               iconColor="brand.100"
@@ -51,7 +51,7 @@ export default function CreateCommunity() {
         {mySnippets.map((snippet) => (
           <MenuListItem
             key={snippet.communityId}
-            displayText={snippet.communityId}
+            displayText={`r/${snippet.communityId}`}
             link={`/r/${snippet.communityId}`}
             icon={FaReddit}
             iconColor="blue.500"

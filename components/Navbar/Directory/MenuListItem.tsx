@@ -34,7 +34,6 @@ export default function MenuListItem({
         })
       }
     >
-      P
       <Flex align="center">
         {imageURL ? (
           <Image src={imageURL} borderRadius="full" boxSize="18px" mr={2} />
