@@ -1,6 +1,6 @@
 import { CommunityStateAtom } from "@/atoms/communitiesAtom";
 import CreateCommunityModal from "@/components/Modal/CreateCommunity/CreateCommunityModal";
-import { Box, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaReddit } from "react-icons/fa";
 import { GrAdd } from "react-icons/gr";
@@ -17,7 +17,7 @@ export default function CreateCommunity() {
       <CreateCommunityModal open={open} setClose={() => setOpen(false)} />
       <Box mt={3} mb={4}>
         <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
-          MY COMMUNITIES
+          MODERATING
         </Text>
         <MenuItem
           _hover={{ bg: "gray.100" }}
@@ -30,6 +30,22 @@ export default function CreateCommunity() {
             Create Community
           </Flex>
         </MenuItem>
+        {mySnippets
+          .filter((snippet) => snippet.isModerator)
+          .map((snippet) => (
+            <MenuListItem
+              key={snippet.communityId}
+              displayText={snippet.communityId}
+              link={`/r/${snippet.communityId}`}
+              icon={FaReddit}
+              iconColor="blue.500"
+              imageURL={snippet.imageURL}
+            />
+          ))}
+        <Divider />
+        <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+          MY COMMUNITIES
+        </Text>
         {mySnippets.map((snippet) => (
           <MenuListItem
             key={snippet.communityId}
@@ -40,6 +56,7 @@ export default function CreateCommunity() {
             imageURL={snippet.imageURL}
           />
         ))}
+        <Divider />
       </Box>
     </>
   );
