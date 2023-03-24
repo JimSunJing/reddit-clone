@@ -24,7 +24,7 @@ export default function CommunityPage({ communityData }: CommunityPageProps) {
       ...prev,
       currentCommunity: communityData,
     }));
-  }, []);
+  }, [communityData]);
 
   if (!communityData) {
     return <NotFound />;

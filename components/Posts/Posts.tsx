@@ -53,7 +53,7 @@ export default function Posts({ communityData }: Props) {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [communityData]);
   return (
     <>
       {loading ? (

@@ -13,7 +13,7 @@ export default function CreatePostLink() {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
-  // const { toggleMenuOpen } = useDirectory();
+  const { toggleMenuOpen } = useDirectory();
   const onClick = () => {
     if (!user) {
       setAuthModalState({ open: true, view: "login" });
@@ -27,7 +27,7 @@ export default function CreatePostLink() {
       return;
     }
     // Open directory menu to select community to post to
-    // toggleMenuOpen();
+    toggleMenuOpen();
   };
   return (
     <Flex
@@ -74,4 +74,7 @@ export default function CreatePostLink() {
       <Icon as={BsLink45Deg} fontSize={24} color="gray.400" cursor="pointer" />
     </Flex>
   );
+}
+function useDirectory(): { toggleMenuOpen: any } {
+  throw new Error("Function not implemented.");
 }

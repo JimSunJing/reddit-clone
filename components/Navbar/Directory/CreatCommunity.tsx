@@ -1,5 +1,6 @@
 import { CommunityStateAtom } from "@/atoms/communitiesAtom";
 import CreateCommunityModal from "@/components/Modal/CreateCommunity/CreateCommunityModal";
+import useCommunityData from "@/hooks/useCommunityHook";
 import { Box, Divider, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaReddit } from "react-icons/fa";
@@ -12,6 +13,7 @@ import MenuListItem from "./MenuListItem";
 export default function CreateCommunity() {
   const [open, setOpen] = useState(false);
   const mySnippets = useRecoilValue(CommunityStateAtom).mySnippets;
+  // const mySnippets = useCommunityData().communityStateValue.mySnippets;
   return (
     <>
       <CreateCommunityModal open={open} setClose={() => setOpen(false)} />
@@ -38,7 +40,7 @@ export default function CreateCommunity() {
               displayText={snippet.communityId}
               link={`/r/${snippet.communityId}`}
               icon={FaReddit}
-              iconColor="blue.500"
+              iconColor="brand.100"
               imageURL={snippet.imageURL}
             />
           ))}
