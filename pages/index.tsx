@@ -35,6 +35,7 @@ export default function Home() {
       );
       const postDocs = await getDocs(postQuery);
       const posts = postDocs.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      // console.log("query success:", posts);
       setPostStateValue((prev) => ({
         ...prev,
         posts: posts as Post[],
@@ -49,7 +50,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
-  }, [user, loadingUser, buildNoUserHomeFeed]);
+  }, [user, loadingUser]);
   return (
     <PageContent>
       <>
