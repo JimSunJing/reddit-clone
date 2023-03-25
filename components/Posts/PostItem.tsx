@@ -39,7 +39,7 @@ type Props = {
   ) => void;
   onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost?: (post: Post) => void;
-  homePage: boolean;
+  homePage?: boolean;
 };
 
 export default function PostItem({

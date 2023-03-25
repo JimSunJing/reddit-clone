@@ -49,7 +49,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!user && !loadingUser) buildNoUserHomeFeed();
-  }, [user, loadingUser]);
+  }, [user, loadingUser, buildNoUserHomeFeed]);
   return (
     <PageContent>
       <>
