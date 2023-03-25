@@ -52,9 +52,10 @@ export type TabItemType = {
 
 type Props = {
   user: User;
+  communityImageURL?: string;
 };
 
-export default function NewPostForm({ user }: Props) {
+export default function NewPostForm({ user, communityImageURL }: Props) {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
   const [textInputs, setTextInputs] = useState({
@@ -71,6 +72,7 @@ export default function NewPostForm({ user }: Props) {
     // create new post object
     const newPost: Post = {
       communityId: communityId as string,
+      communityImageURL: communityImageURL || "",
       creatorId: user.uid,
       creatorDisplayName: user.email!.split("@")[0],
       title: textInputs.title,
