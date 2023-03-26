@@ -1,5 +1,6 @@
 import { authModalState } from "@/atoms/AuthModalAtom";
 import { auth } from "@/firebase/clientApp";
+import useDiretory from "@/hooks/useDiretory";
 import { Flex, Icon, Input } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
@@ -13,7 +14,7 @@ export default function CreatePostLink() {
   const router = useRouter();
   const [user] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState(authModalState);
-  // const { toggleMenuOpen } = useDirectory();
+  const { toggleMenuOpen } = useDiretory();
   const onClick = () => {
     if (!user) {
       setAuthModalState({ open: true, view: "login" });
@@ -27,7 +28,7 @@ export default function CreatePostLink() {
       return;
     }
     // Open directory menu to select community to post to
-    // toggleMenuOpen();
+    toggleMenuOpen();
   };
   return (
     <Flex

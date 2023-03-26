@@ -24,7 +24,7 @@ export default function CommunityPage({ communityData }: CommunityPageProps) {
       ...prev,
       currentCommunity: communityData,
     }));
-  }, []);
+  }, [communityData]);
 
   if (!communityData) {
     return <NotFound />;
@@ -62,20 +62,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           : "",
       },
     };
-    console.log("Community Data", res);
+    // console.log("Community Data", res);
     return res;
   } catch (error) {
     console.log("getServerSideProps", error);
     // dummy for network error(fuck the firewall)
-    return {
-      props: {
-        communityData: {
-          id: "image",
-          numberOfMembers: 1,
-          creatorId: "NGWCvi1DDtMmoIPfjfVXDhCFBBs1",
-          privacyType: "public",
-        },
-      },
-    };
+    // return {
+    //   props: {
+    //     communityData: {
+    //       id: "image",
+    //       numberOfMembers: 1,
+    //       creatorId: "NGWCvi1DDtMmoIPfjfVXDhCFBBs1",
+    //       privacyType: "public",
+    //     },
+    //   },
+    // };
   }
 }

@@ -1,4 +1,5 @@
 import { auth, firestore } from "@/firebase/clientApp";
+import useDiretory from "@/hooks/useDiretory";
 import {
   Box,
   Button,
@@ -24,6 +25,7 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BsFillPersonFill, BsFillEyeFill } from "react-icons/bs";
@@ -31,17 +33,18 @@ import { HiLockClosed } from "react-icons/hi";
 
 type Props = {
   open: boolean;
-  setClose: () => void;
+  handleClose: () => void;
 };
 
-export default function CreateCommunityModal({ open, setClose }: Props) {
+export default function CreateCommunityModal({ open, handleClose }: Props) {
   const [user, userError] = useAuthState(auth);
-
+  const router = useRouter();
   const [communityName, setCommunityName] = useState("");
   const [charsRemain, setCharsRemain] = useState(21);
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { toggleMenuOpen } = useDiretory();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // limit chars of name
@@ -100,6 +103,10 @@ export default function CreateCommunityModal({ open, setClose }: Props) {
           }
         );
       });
+
+      handleClose();
+      toggleMenuOpen();
+      router.push(`r/${communityName}`);
     } catch (error: any) {
       console.log("handleCreateCommunity error", error);
       setError(error.message);
@@ -110,7 +117,7 @@ export default function CreateCommunityModal({ open, setClose }: Props) {
 
   return (
     <>
-      <Modal isOpen={open} onClose={setClose} size="xl">
+      <Modal isOpen={open} onClose={handleClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create a community</ModalHeader>
@@ -205,7 +212,12 @@ export default function CreateCommunityModal({ open, setClose }: Props) {
           </Box>
 
           <ModalFooter bg="gray.100" borderRadius="0px 0px 10px 10px">
-            <Button height="30px" variant="outline" mr={3} onClick={setClose}>
+            <Button
+              height="30px"
+              variant="outline"
+              mr={3}
+              onClick={handleClose}
+            >
               Close
             </Button>
             <Button

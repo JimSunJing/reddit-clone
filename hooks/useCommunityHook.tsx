@@ -8,10 +8,12 @@ import { auth, firestore } from "@/firebase/clientApp";
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   increment,
   writeBatch,
 } from "firebase/firestore";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -21,13 +23,30 @@ export default function useCommunityData() {
     useRecoilState(CommunityStateAtom);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const [user] = useAuthState(auth);
 
   const setAuthModalState = useSetRecoilState(authModalState);
 
+  // 从外界访问单个 Post 可能不经过 community page 的 getServerSideProps
+  // 需要重新从服务器获取 community 数据
   useEffect(() => {
-    if (!user) return;
+    const { communityId } = router.query;
+    if (communityId && !communityStateValue.currentCommunity) {
+      getCommunityData(communityId as string);
+    }
+  }, [router.query, communityStateValue.currentCommunity]);
+
+  useEffect(() => {
+    if (!user) {
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        mySnippets: [],
+        snippetFetched: false,
+      }));
+      return;
+    }
     getUserSnippets();
   }, [user]);
 
@@ -41,6 +60,7 @@ export default function useCommunityData() {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
+        snippetFetched: true,
       }));
     } catch (error) {
       console.log("getUserSnippets error", error);
@@ -78,6 +98,7 @@ export default function useCommunityData() {
       const newSnippet: CommunitySnippet = {
         communityId: communityData.id,
         imageURL: communityData.imageURL || "",
+        isModerator: user?.uid === communityData.creatorId,
       };
 
       // add user snippet
@@ -138,6 +159,23 @@ export default function useCommunityData() {
       setError(error.message);
     }
     setLoading(false);
+  };
+
+  const getCommunityData = async (communityId: string) => {
+    try {
+      const communityRef = doc(firestore, "communities", communityId);
+      const communityDoc = await getDoc(communityRef);
+
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        currentCommunity: {
+          id: communityDoc.id,
+          ...communityDoc.data(),
+        } as Community,
+      }));
+    } catch (error) {
+      console.log("getCommunityData", error);
+    }
   };
 
   return { communityStateValue, joinOrLeaveCommunity, loading };
