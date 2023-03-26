@@ -4,13 +4,13 @@ deploy on [vercel](https://reddit-clone-bay-two.vercel.app/)
 
 ## Show Case
 
-[Home Page](/showcase/showcase1.png)
+![Home Page](/showcase/showcase1.png)
 Home Page
 
-[Dynamic Style](/showcase/showcase2.png)
+![Dynamic Style](/showcase/showcase2.png)
 Dynamic Style
 
-[Community Page](/showcase/showcase3.png)
+![Community Page](/showcase/showcase3.png)
 Community Page
 
 ## What I Learned(Use)
