@@ -16,7 +16,7 @@ export default function CreateCommunity() {
   // const mySnippets = useCommunityData().communityStateValue.mySnippets;
   return (
     <>
-      <CreateCommunityModal open={open} setClose={() => setOpen(false)} />
+      <CreateCommunityModal open={open} handleClose={() => setOpen(false)} />
       <Box mt={3} mb={4}>
         <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
           MODERATING

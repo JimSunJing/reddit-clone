@@ -62,7 +62,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           : "",
       },
     };
-    console.log("Community Data", res);
+    // console.log("Community Data", res);
     return res;
   } catch (error) {
     console.log("getServerSideProps", error);
