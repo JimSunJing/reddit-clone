@@ -39,6 +39,6 @@ Community Page
 
 ## Thanks
 
-### [Youtube Tutorial I wanted](https://www.youtube.com/watch?v=rCm5RVYKWVg&t=492s&ab_channel=freeCodeCamp.org)
+### [Youtube Tutorial I watched](https://www.youtube.com/watch?v=rCm5RVYKWVg&t=492s&ab_channel=freeCodeCamp.org)
 
 Thank you [shadmerhi](https://github.com/shadeemerhi) for creating such a wonderful tutorial. Five stars!
